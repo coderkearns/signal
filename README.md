@@ -1,23 +1,25 @@
 <img align="right" width="200" height="200" src="https://github.com/coderkearns/template-typescript/blob/main/logo.png?raw=true" />
 
-# template-typescript
+# signal
 
-A TS template to build for TS, ESM, CJS, and Web all at once.
+Simple TS reactivity primitives, based around subscribers.
 
 ## Getting Started
 
 ### Installing
 
+> IMPORTANT: not yet registered on npm!
+
 You can install from npm:
 
 ```
-$ npm install -s @coderkearns/<name>
+$ npm install -s @coderkearns/signal
 ```
 
 Or directly from this repository for bleeding-edge features:
 
 ```
-$ npm install -s git+github.com/coderkearns/<name>
+$ npm install -s git+github.com/coderkearns/signal
 ```
 
 ## Docs

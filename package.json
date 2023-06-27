@@ -1,7 +1,7 @@
 {
-    "name": "<NAME>",
-    "version": "0.0.0",
-    "description": "<DESCRIPTION>",
+    "name": "@coderkearns/signal",
+    "version": "1.0.0",
+    "description": "Simple TS reactivity primitives",
     "main": "src/index.js",
     "exports": {
         ".": {
@@ -18,8 +18,10 @@
     "scripts": {
         "clean": "rm -rf dist",
         "build:ts": "tsc -b ./tsconfig.*.json",
-        "build:web": "esbuild ./dist/esm/index.js --bundle --minify --sourcemap --target=es2015 --global-name=<NAME> --outfile=dist/web/index.js",
-        "build": "pnpm clean; pnpm build:ts && pnpm build:web",
+        "build:web": "esbuild ./dist/esm/index.js --bundle --minify --sourcemap --target=es2015 --global-name=Signal --outfile=dist/web/index.js",
+	"build:cjs": "esbuild ./dist/cjs/index.js --minify --sourcemap --platform=node --outfile=./dist/cjs/index.js --allow-overwrite",
+	"build:esm": "esbuild ./dist/esm/index.js --minify --sourcemap --outfile=./dist/esm/index.js --allow-overwrite",
+        "build": "pnpm clean; pnpm build:ts && pnpm build:esm && pnpm build:cjs && pnpm build:web",
         "publish-package": "pnpm build && pnpm publish --access=public"
     },
     "dependencies": {},
