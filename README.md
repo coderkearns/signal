@@ -22,7 +22,7 @@ Or directly from this repository for bleeding-edge features:
 $ npm install -s git+github.com/coderkearns/signal
 ```
 
-## Docs
+## Documentation
 
 See [DOCS.md](./DOCS.md) for documentation and examples.
 

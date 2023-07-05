@@ -1,4 +1,4 @@
-# signal
+# Documentation
 
 ## Usage
 
@@ -10,10 +10,10 @@ import { use, effect } from "@coderkearns/signal"
 const number1 = use(0)
 const number2 = use(0)
 
-const combinedNumbers = effect(() => `${number1.get() + number2.get()}`)
+const combinedNumbers = effect(() => number1.get() + number2.get())
 
 effect(() => {
-    console.log(`${$combinedNumbers.get()}`)
+    console.log(`combined is now ${$combinedNumbers.get()}`)
 })
 ```
 
