@@ -13,7 +13,7 @@ const number2 = use(0)
 const combinedNumbers = effect(() => number1.get() + number2.get())
 
 effect(() => {
-    console.log(`combined is now ${$combinedNumbers.get()}`)
+    console.log(`combined is now ${combinedNumbers.get()}`)
 })
 ```
 
