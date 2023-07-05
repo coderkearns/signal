@@ -23,9 +23,9 @@ export function use<T>(value: T): Signal<T> {
             }
             return value
         },
-	get $() {
-	    return signal.get()
-	},
+        get $() {
+            return signal.get()
+        },
         set(newValue: T) {
             value = newValue
             subscribers.forEach(callback => callback())
@@ -46,10 +46,6 @@ export function use<T>(value: T): Signal<T> {
     }
 
     return signal
-}
-
-export function s<T>(signal: Signal<T>): T {
-    return signal.get()
 }
 
 export function effect<T>(fn: () => T): Signal<T> {
