@@ -1,6 +1,6 @@
 {
     "name": "@coderkearns/signal",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "description": "Simple TS reactivity primitives",
     "main": "src/index.js",
     "exports": {
