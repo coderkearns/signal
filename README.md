@@ -2,7 +2,7 @@
 
 # signal
 
-Simple TS reactivity primitives, based around subscribers.
+Simple TS reactivity primitives, based around the subscription (observer) design pattern.
 
 ## Getting Started
 
