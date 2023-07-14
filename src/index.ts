@@ -3,53 +3,55 @@ type SubscribeFn = (callback: () => void) => () => void
 
 let _root: Signal<unknown>[] | null = null
 
-interface Signal<T> {
-    _value: T
-    _subscribers: Array<Subscriber>
-    
-    (): T
-    set(newValue: T): void
-    subscribe(callback: Subscriber): () => void
-    destroy(): void
-    valueOf(): T
-    toString(): string
-}
+class Signal<T> extends Function {
+    private _value: unknown
+    private _subscribers: Array<Subscriber>
 
-const signalProto: Signal<unknown> = {
-    set(this: Signal<unknown>, newValue: unknown) {
+    constructor(initialValue: T) {
+        super("...args", "return this._call(...args)")
+        const self = this.bind(this)
+
+        this._value = initialValue
+        this._subscribers = []
+
+        return self
+    }
+
+    _call() {
+        if (_root !== null) _root.push(this)
+        return this._value
+    }
+
+    set(newValue: T) {
         this._value = newValue
         this._subscribers.forEach(callback => callback())
-    },
-    subscribe(this: Signal<unknown>, callback: Subscriber) {
+    }
+
+    subscribe(callback: Subscriber) {
         this._subscribers.push(callback)
         return () => {
             this._subscribers.splice(this._subscribers.indexOf(callback), 1)
         }
-    },
-    destroy(this: Signal<unknown>) { },
-    valueOf(this: Signal<unknown>) {
+    }
+
+    destroy() {}
+
+    valueOf() {
         return this()
-    },
-    toString(this: Signal<unknown>) {
+    }
+
+    toString(): string {
         return `${this()}`
     }
-} as Signal<unknown>
-
-export function use<T>(initialValue: T): Signal<T> {
-    const signal = function(this: Signal<T>) {
-        if (_root !== null) _root.push(this)
-        return this._value
-    }
-    
-    Object.assign(signal, signalProto, {
-        _value:  initialValue,
-        _subscribers: []  
-    })
-    
-    return signal as Signal<T>
 }
 
-function withRoot<T>(fn: () => T): { signals: Array<Signal<unknown>>, ret: T } {
+const signalProto: Signal<unknown> = {} as Signal<unknown>
+
+export function use<T>(initialValue: T): Signal<T> & (() => T) {
+    return new Signal<T>(initialValue) as unknown as Signal<T> & (() => T)
+}
+
+function withRoot<T>(fn: () => T): { signals: Array<Signal<unknown>>; ret: T } {
     const oldRoot = _root
     _root = []
     const ret = fn()
